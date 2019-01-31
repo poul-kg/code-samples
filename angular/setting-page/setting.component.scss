@@ -1,0 +1,331 @@
+@import "../../assets/scss/colors";
+@import "../../assets/scss/common";
+
+.user-profile {
+  max-width: 1320px;
+  margin: 40px;
+
+  &__title {
+    margin-bottom: 32px;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+
+  &__content {
+
+    &-contact {
+      width: 688px;
+    }
+
+    &-avatar {
+      margin-right: 160px;
+    }
+
+    &-basic {
+      width: 688px;
+      margin-top: 24px;
+    }
+
+    &-interest,
+    &-education,
+    &-skill {
+      width: 688px;
+    }
+  }
+
+  &-basic-form {
+
+    &__input {
+
+      &-user {
+
+        &-first-name {
+          border-bottom: 0;
+          border-radius: 10px 0 0;
+        }
+
+        &-last-name {
+          border-bottom: 0;
+          border-left: 0;
+          border-radius: 0 10px 0 0;
+        }
+
+        &-desc {
+          border-bottom: 0;
+          border-radius: 10px 10px 0 0;
+          outline: none;
+        }
+
+        &-phone {
+          border-top: 0;
+          border-right: 0;
+          border-bottom: 0;
+          border-radius: 0;
+        }
+
+        &-birth-date,
+        &-role,
+        &-twitter,
+        &-linkedin {
+          border-bottom: 0;
+          border-radius: 0;
+        }
+
+        &-web {
+          border-radius: 0 0 10px 10px;
+        }
+
+        &-email,
+        &-location-name {
+          border-top: 0;
+          border-radius: 0 0 10px 10px;
+        }
+
+        &-img-picker {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &-skill-form,
+  &-interest-form {
+
+    &__input {
+
+      &-user {
+
+        &-skill,
+        &-interest {
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+
+  &__contact-input-container {
+
+    .floating-label {
+      display: inline-block;
+      width: 50%;
+    }
+  }
+
+  &__interest-container,
+  &__skill-container {
+    display: inline-block;
+    width: 688px;
+    height: 70px;
+    border-radius: 15px;
+  }
+
+  &__education-container {
+    display: flex;
+    justify-content: space-between;
+    width: 688px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  &__divider {
+    height: 2px;
+    margin: 40px -40px;
+    background: $bg-body;
+  }
+
+  &-pill-section {
+    margin-top: 24px;
+  }
+
+  &__pill {
+    display: inline-block;
+    padding: 7px 12px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border: 1px solid rgba($midnight, .2);
+    border-radius: 16px;
+
+    &-interest,
+    &-skill {
+      display: inline-block;
+      margin-left: 10px;
+
+      &--enabled {
+        cursor: pointer;
+      }
+
+      &--disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__btn {
+
+    &-add-edu {
+      float: right;
+      margin-top: 16px;
+      cursor: pointer;
+    }
+
+    &-remove-edu {
+      display: inline-block;
+      padding-top: 20px;
+
+      &--enabled {
+        cursor: pointer;
+      }
+
+      &--disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &-education-form {
+
+    .floating-label {
+      display: inline-block;
+      width: 33.33%;
+    }
+
+    &__input {
+
+      &-school {
+
+        &-name {
+          border-radius: 10px 0 0 10px;
+        }
+
+        &-certificate {
+          border-radius: 0;
+        }
+
+        &-pass-year {
+          padding-right: 7px;
+          border-radius: 0 10px 10px 0;
+        }
+      }
+    }
+  }
+
+  &__education-detail {
+    display: inline-block;
+  }
+
+  .intl-tel-input {
+    width: 100%;
+    border: solid 1px rgba($midnight, .15);
+
+    .floating-label {
+      margin-left: 50px;
+    }
+
+    .selected-flag {
+      outline: none;
+    }
+  }
+
+  .intl-tel-input.allow-dropdown input {
+    padding-left: 15px;
+  }
+
+  .country.highlight {
+    position: unset;
+    top: unset;
+    left: unset;
+    pointer-events: unset;
+    opacity: unset;
+  }
+}
+
+@media (max-width: 1300px) {
+
+  .user-profile__content-contact,
+  .user-profile__content-basic,
+  .user-profile__content-skill,
+  .user-profile__content-interest,
+  .user-profile__content-education,
+  .user-profile__skill-container,
+  .user-profile__interest-container {
+    position: relative;
+    width: 65%;
+  }
+
+  .user-profile__skill-container,
+  .user-profile__education-container,
+  .user-profile__interest-container {
+    width: 100%;
+  }
+
+  .user-profile__content-avatar {
+    margin-top: 20px;
+    margin-right: 0;
+    margin-left: 20px;
+  }
+
+  .user-profile__btn-add-edu {
+    position: absolute;
+    right: 0;
+  }
+
+  .user-profile__education-container {
+    margin-top: 100px;
+  }
+
+  .user-profile-education-form,
+  .user-profile__contact-input-container {
+
+    .floating-label {
+      width: 100%;
+    }
+  }
+
+  .user-profile-basic-form__input-user-first-name,
+  .user-profile-education-form__input-school-name {
+    border-bottom: 0;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .user-profile-education-form__input-school-certificate {
+    border-bottom: 0;
+    border-radius: 0;
+  }
+
+  .user-profile-education-form__input-school-pass-year {
+    border-radius: 0 0 10px 10px;
+  }
+
+  .user-profile-basic-form__input-user-last-name {
+    border-bottom: 0;
+    border-left: solid 1px rgba($midnight, .15);
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 1000px) {
+
+  .user-profile__container {
+    flex-direction: column;
+  }
+
+  .user-profile__content-contact,
+  .user-profile__content-basic,
+  .user-profile__content-skill,
+  .user-profile__content-interest,
+  .user-profile__content-education,
+  .user-profile__skill-container,
+  .user-profile__interest-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .user-profile__content-avatar {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+}

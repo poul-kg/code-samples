@@ -1,0 +1,88 @@
+@import "../style/colors.scss";
+@import "../style/typography.scss";
+
+$laTileBorderRadius: 8px;
+$laTileSmallPadding: 16px;
+$laTileCellPadding: 16px;
+$laTileImagePadding: 24px;
+
+.la-tile {
+  background: #F7F7F8;
+  border-radius: $laTileBorderRadius;
+  position: relative;
+
+  &:hover {
+    box-shadow: 0 0 15px 0 rgba(234, 235, 237, 0.74);
+    background: $white;
+  }
+}
+
+/* Cell Tile */
+.la-tile--cell {
+  width: 370px;
+  height: 88px;
+
+  .la-text--title-2 {
+    position: absolute;
+    left: 16px;
+    top: 23px;
+  }
+
+  .la-text--title-3 {
+    position: absolute;
+    left: $laTileCellPadding;
+    top: 47px;
+  }
+
+  .la-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 $laTileBorderRadius 0 5px;
+  }
+}
+
+/* Small Tile */
+.la-tile--small {
+  width: 145px;
+  height: 145px;
+
+  .la-text--title-2 {
+    position: absolute;
+    left: $laTileSmallPadding;
+    bottom: $laTileSmallPadding;
+  }
+
+  .la-date-label {
+    position: absolute;
+    top: $laTileSmallPadding;
+    left: $laTileSmallPadding;
+  }
+}
+
+/* Image Tile */
+.la-tile--image {
+  width: 219px;
+  height: 219px;
+  display: flex;
+  justify-content: center;
+  padding: $laTileImagePadding;
+
+  .la-image__pic {
+    width: auto;
+    height: 100%;
+    max-height: 115px;
+  }
+
+  .la-text--title-2 {
+    position: absolute;
+    bottom: $laTileImagePadding;
+    left: $laTileImagePadding;
+  }
+
+  .la-icon {
+    position: absolute;
+    bottom: $laTileImagePadding;
+    right: $laTileImagePadding;
+  }
+}

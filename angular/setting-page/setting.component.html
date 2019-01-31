@@ -1,0 +1,221 @@
+<la-progress-bar *ngIf="isLoading"></la-progress-bar>
+<div *ngIf="!isLoading">
+  <la-page-title>
+    <la-text [kind]="'display'">Settings</la-text>
+    <la-button [kind]="'primary'" (clicked)="onEditProfile(userProfileForm)"
+               [isDisabled]="!userProfileForm.valid || !editProfileForm.valid ||
+               !(userProfileForm.dirty || interestForm.dirty || skillForm.dirty || educationForm.dirty)">Save changes
+    </la-button>
+  </la-page-title>
+  <div laStickyHeader class="page-wrapper">
+    <tabset>
+      <tab heading="Account" [disabled]="true" id="tabAccount">
+        <ng-container [ngTemplateOutlet]="accountTabTemplate"></ng-container>
+      </tab>
+
+      <tab heading="Profile" [active]="true" id="tabProfile">
+        <ng-container [ngTemplateOutlet]="profileTabTemplate"></ng-container>
+      </tab>
+    </tabset>
+  </div>
+</div>
+
+<ng-template #accountTabTemplate>
+  <div class="user-profile">
+    <form [formGroup]="editProfileForm" enctype="multipart/form-data">
+      <div class="user-profile__container">
+        <div class="user-profile__content-contact">
+          <div class="user-profile__title">
+            <la-text [kind]="'title-1'">Contact</la-text>
+          </div>
+          <div class="user-profile__contact-input-container">
+            <input type="text" laInput formControlName="first_name" name="first_name" placeholder="First name*"
+                   class="user-profile-basic-form__input-user-first-name">
+            <input type="text" laInput formControlName="last_name" name="last_name" placeholder="Last name"
+                   class="user-profile-basic-form__input-user-last-name">
+          </div>
+          <input type="text" laInput formControlName="phone" placeholder="Phone" (hasError)="hasError($event)"
+                 class="user-profile-basic-form__input-user-phone" (keypress)="numberOnly($event)"
+                 ng2TelInput [ng2TelInputOptions]="ng2TelInputOptions"/>
+          <input laInput formControlName="email" name="email" placeholder="Email"
+                 class="user-profile-basic-form__input-user-email">
+        </div>
+        <div class="user-profile__content-avatar">
+          <input #businessLogo type="file" class="user-profile-basic-form__input-user-img-picker" id="businessLogo"
+                 (change)="onFileChange($event)" (click)="businessLogo.value = null" accept="image/*">
+          <la-image-picker [imageUrl]="img" [imageFieldId]="'businessLogo'" (onRemoveImage)="onFileRemove($event)">
+          </la-image-picker>
+        </div>
+      </div>
+      <div class="user-profile__divider"></div>
+      <div class="user-profile__content-basic">
+        <div class="user-profile__title">
+          <la-text [kind]="'title-1'">Profile</la-text>
+        </div>
+        <textarea laInput rows="3" cols="50" placeholder="About" formControlName="description"
+                  name="description" class="user-profile-basic-form__input-user-desc"></textarea>
+        <input laInput class="user-profile-basic-form__input-user-birth-date" #dp="bsDatepicker" bsDatepicker
+               [bsValue]="birthDate"
+               placeholder="Birthday"
+               (bsValueChange)="onDateSelect($event)"
+               [maxDate]="today">
+        <input laInput formControlName="designation" name="designation" placeholder="Role"
+               class="user-profile-basic-form__input-user-role">
+        <input laInput formControlName="twitter_url" name="twitter_url" placeholder="Twitter"
+               class="user-profile-basic-form__input-user-twitter">
+        <input laInput formControlName="linkedin_url" name="linkedin_url" placeholder="LinkedIn"
+               class="user-profile-basic-form__input-user-linkedin">
+        <input laInput formControlName="website_url" name="website_url" placeholder="Website"
+               class="user-profile-basic-form__input-user-web">
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #profileTabTemplate>
+  <div class="user-profile">
+    <form [formGroup]="userProfileForm" enctype="multipart/form-data" autocomplete="off">
+      <div class="user-profile__container">
+        <div class="user-profile__content-contact">
+          <div class="user-profile__title">
+            <la-text [kind]="'title-1'">Contact</la-text>
+          </div>
+          <div class="user-profile__contact-input-container">
+            <input type="text" laInput formControlName="first_name" name="first_name" placeholder="First name*"
+                   class="user-profile-basic-form__input-user-first-name">
+            <input type="text" laInput formControlName="last_name" name="last_name" placeholder="Last name"
+                   class="user-profile-basic-form__input-user-last-name">
+          </div>
+          <input type="text" laInput formControlName="phone" placeholder="Phone" (hasError)="hasError($event)"
+                 class="user-profile-basic-form__input-user-phone" (keypress)="numberOnly($event)"
+                 ng2TelInput [ng2TelInputOptions]="ng2TelInputOptions"/>
+          <input *ngxPermissionsOnly="['manage_multi_businesses']" laInput formControlName="location_name"
+                 name="location_name" placeholder="Location" class="user-profile-basic-form__input-user-location-name">
+        </div>
+        <div class="user-profile__content-avatar">
+          <input #profileLogo type="file" class="user-profile-basic-form__input-user-img-picker" id="profileLogo"
+                 (change)="onFileChange($event)" (click)="profileLogo.value = null" accept="image/*">
+          <la-image-picker [imageUrl]="img" (onRemoveImage)="onFileRemove($event)"></la-image-picker>
+        </div>
+      </div>
+      <div class="user-profile__divider"></div>
+      <div class="user-profile__content-basic">
+        <div class="user-profile__title">
+          <la-text [kind]="'title-1'">Profile</la-text>
+        </div>
+        <textarea laInput rows="3" cols="50" placeholder="About" formControlName="description"
+                  name="description" class="user-profile-basic-form__input-user-desc"></textarea>
+        <input laInput class="user-profile-basic-form__input-user-birth-date" #dp="bsDatepicker" bsDatepicker
+               [bsValue]="birthDate"
+               placeholder="Birthday"
+               (bsValueChange)="onDateSelect($event)"
+               [maxDate]="today">
+        <input laInput formControlName="designation" name="designation" placeholder="Role"
+               class="user-profile-basic-form__input-user-role">
+        <input laInput formControlName="twitter_url" name="twitter_url" placeholder="Twitter"
+               class="user-profile-basic-form__input-user-twitter">
+        <input laInput formControlName="linkedin_url" name="linkedin_url" placeholder="LinkedIn"
+               class="user-profile-basic-form__input-user-linkedin">
+        <input laInput formControlName="website_url" name="website_url" placeholder="Website"
+               class="user-profile-basic-form__input-user-web">
+      </div>
+    </form>
+    <div class="user-profile__divider"></div>
+    <!-- skills start-->
+    <div class="user-profile__content-skill">
+      <div class="user-profile__title">
+        <la-text [kind]="'title-1'">Skills</la-text>
+      </div>
+      <form [formGroup]="skillForm">
+        <div class="user-profile__skill-container">
+          <input laInput placeholder="Add a skill..." class="user-profile-skill-form__input-user-skill"
+                 formControlName="name"
+                 (keydown)="keyDownFunction($event, 'skill', skillForm)">
+        </div>
+      </form>
+      <div class="user-profile-pill-section">
+        <span class="user-profile__pill" *ngFor="let skill of memberProfile?.customer?.skills">
+            <la-text [kind]="'caption'" [color]="'midnight-3'">{{skill?.name}}</la-text>
+            <span class="user-profile__pill-skill user-profile__pill-skill--enabled" *ngIf="!isDeleting;"
+                  (click)="onRemoveSkill(skill.id)">
+              <la-icon [color]="'midnight-3'" [size]="'sm'" [name]="'exit'"></la-icon>
+            </span>
+            <span *ngIf="isDeleting;" class="user-profile__pill-skill user-profile__pill-skill--disabled">
+              <la-icon [color]="'midnight-3'" [size]="'sm'" [name]="'exit'"></la-icon>
+            </span>
+        </span>
+      </div>
+    </div>
+    <!-- skills end-->
+    <div class="user-profile__divider"></div>
+    <!-- Interest start-->
+    <div class="user-profile__content-interest">
+      <div class="user-profile__title">
+        <la-text [kind]="'title-1'">Interests</la-text>
+      </div>
+      <form [formGroup]="interestForm">
+        <div class="user-profile__interest-container">
+          <input laInput placeholder="Add an interest..." class="user-profile-interest-form__input-user-interest"
+                 formControlName="name" (keydown)="keyDownFunction($event, 'interest', interestForm)">
+        </div>
+      </form>
+      <div class="user-profile-pill-section">
+        <span class="user-profile__pill" *ngFor="let interest of memberProfile?.customer?.interests">
+           <la-text [kind]="'caption'" [color]="'midnight-3'">{{interest?.name}}</la-text>
+            <span class="user-profile__pill-interest user-profile__pill-interest--enabled" *ngIf="!isDeleting;"
+                  (click)="onRemoveInterest(interest.id)">
+              <la-icon [color]="'midnight-3'" [size]="'sm'" [name]="'exit'"></la-icon>
+            </span>
+            <span *ngIf="isDeleting;" class="user-profile__pill-interest user-profile__pill-interest--disabled">
+              <la-icon [color]="'midnight-3'" [size]="'sm'" [name]="'exit'"></la-icon>
+            </span>
+        </span>
+      </div>
+    </div>
+    <!-- Interest end-->
+    <div class="user-profile__divider"></div>
+    <!-- education start -->
+    <div class="user-profile__content-education">
+      <div class="user-profile__title">
+        <la-text [kind]="'title-1'">Education</la-text>
+      </div>
+      <form [formGroup]="educationForm" class="user-profile-education-form">
+        <input laInput placeholder="School name..." class="user-profile-education-form__input-school-name"
+               formControlName="school_name">
+        <input laInput placeholder="Degree of certificate" class="user-profile-education-form__input-school-certificate"
+               formControlName="degree">
+        <input laInput placeholder="Year of completion" type="number"
+               min="1000" max="9999"
+               class="user-profile-education-form__input-school-pass-year"
+               formControlName="passing_year">
+      </form>
+      <div class="user-profile__btn-add-edu">
+        <la-button [kind]="'primary'" [isDisabled]="educationForm.invalid" (clicked)="onAddEducation(educationForm)">
+          Add school
+        </la-button>
+      </div>
+      <div *ngFor="let memberEducation of memberProfile?.customer?.educations">
+        <div class="user-profile__education-container">
+          <div class="user-profile__education-detail">
+            <div>
+              <la-text [kind]="'title-2'">{{memberEducation?.school_name}}</la-text>
+            </div>
+            <div>
+              <la-text [kind]="'title-2'" [color]="'midnight-3'">{{memberEducation?.degree}}</la-text>
+            </div>
+            <div>
+              <la-text [kind]="'title-2'" [color]="'midnight-3'">{{memberEducation?.passing_year}}</la-text>
+            </div>
+          </div>
+          <div class="user-profile__btn-remove-edu user-profile__btn-remove-edu--enabled" *ngIf="!isDeleting"
+               (click)="onRemoveEducation(memberEducation.id)">
+            <la-icon [color]="'midnight-3'" [size]="'md'" [name]="'exit'"></la-icon>
+          </div>
+          <div class="user-profile__btn-remove-edu user-profile__btn-remove-edu--disabled" *ngIf="isDeleting">
+            <la-icon [color]="'midnight-3'" [size]="'md'" [name]="'exit'"></la-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
